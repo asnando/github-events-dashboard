@@ -1,0 +1,21 @@
+{
+  "name": "github-events-dashboard",
+  "version": "1.0.0",
+  "description": "See your latest personal Github events",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src",
+    "dev": "nodemon src"
+  },
+  "author": "Fernando Rama",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "nodemon": "^1.19.1"
+  }
+}
