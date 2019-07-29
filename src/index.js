@@ -4,7 +4,7 @@ const package = require('../package.json');
 
 const server = express();
 
-const port = process.env.port || 8080;
+const port = process.env.PORT || 8080;
 const { name: appName } = package;
 
 server
