@@ -4,9 +4,9 @@
   "description": "See your latest personal Github events",
   "main": "src/index.js",
   "scripts": {
-    "start": "next start",
+    "start": "NODE_ENV=production npm run build && next start",
     "build": "next build",
-    "dev": "next -- -p 8080"
+    "dev": "next -- -p 3000"
   },
   "author": "Fernando Rama",
   "license": "MIT",
