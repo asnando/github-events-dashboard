@@ -1,5 +1,5 @@
 import React from 'react';
-import getOAuthAuthenticationEndpoint from '../oauth/getOAuthAuthenticationEndpoint';
+import getOAuthAuthenticationEndpoint from '../api/getOAuthAuthenticationEndpoint';
 
 export default class extends React.Component {
   static async getInitialProps({ res }) {

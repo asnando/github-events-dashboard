@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-unfetch'
-import { GITHUB_OAUTH_URL } from './oauth.config';
+import { GITHUB_OAUTH_URL } from './api.config';
 import encodeQueryStringParams from './helpers/encodeQueryStringParams';
 import decodeParamsStringToObject from './helpers/decodeParamsStringToObject';
 

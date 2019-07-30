@@ -1,5 +1,5 @@
 import encodeQueryStringParams from './helpers/encodeQueryStringParams';
-import { GITHUB_OAUTH_URL } from './oauth.config';
+import { GITHUB_OAUTH_URL } from './api.config';
 
 const { GITHUB_OAUTH_CLIENT_ID } = process.env;
 
