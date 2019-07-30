@@ -75,13 +75,42 @@ html, body {
   background-size: 100%;
   filter: invert(100%);
 }
+.dashboard {
+  width: 40em;
+}
+.event {
+  width: 30em;
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+}
+.event-header {
+  width: 100%;
+  margin-left: 1em;
+  display: flex;
+}
+.event-title {
+  vertical-align: middle;
+  line-height: 3em;
+  margin-left: .5em;
+}
+.user-profile-avatar {
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: .25em;
+  overflow: hidden;
+}
+.user-profile-avatar > img {
+  width: 100%;
+  height: 100%;
+}
 .card {
   width: 30em;
   height: 6em;
   background-color: #fff;
   border-radius: .25em;
   border: 1px solid #ccc;
-  margin: 1em;
+  margin-left: 4em;
   padding: .5em;
   overflow: hidden;
 }
@@ -91,14 +120,14 @@ html, body {
   margin: 0;
 }
 .button {
-  width: 31em;
+  width: 99%;
   height: 3em;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: .25em;
   outline: none;
   font-size: 1em;
-  margin-left: 1em;
+  margin-left: .5em;
   margin-bottom: 1em;
   font-weight: bold;
   text-transform: uppercase;
