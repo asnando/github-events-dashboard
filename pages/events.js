@@ -12,15 +12,22 @@ class EventsPage extends React.Component {
     return { events };
   }
 
-  render() {
+  renderEventCards() {
     const { events } = this.props;
-    console.log(events);
-    const pvt = events.filter(event => !event.public);
-    console.log(pvt);
+    return events.map(({ type }, index) => (
+      <div className="card" key={index}>
+        <pre className="card-title">{type}</pre>
+      </div>
+    ));
+  }
+
+  render() {
     return (
       <div>
         <PageHeader />
         <Header />
+        {this.renderEventCards()}
+        <button className="button">More</button>
       </div>
     );
   }
