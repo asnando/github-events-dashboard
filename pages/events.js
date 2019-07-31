@@ -4,9 +4,9 @@ import moment from 'moment';
 import PageHeader from './PageHeader';
 import Header from '../components/Header';
 import fetchEvents from '../api/fetchEvents';
+import getRepoInfo from '../api/getRepoInfo';
 
 const transformEventPayload = eventPayload => {
-  console.log(eventPayload);
   const { type: eventType, actor, payload, repo, created_at } = eventPayload;
 
   const event = {
@@ -51,11 +51,18 @@ const transformEventPayload = eventPayload => {
 };
 
 const RepositoryCard = (props) => {
-  const { name, description, url } = props;
+  const {
+    name,
+    description,
+    url,
+    stargazers,
+    language,
+  } = props;
   return (
     <div className="card">
       <a href={url} target="_blank" className="card-title">{name}</a>
       <div className="card-description">{description}</div>
+      {language} - {stargazers}
     </div>
   );
 };
@@ -91,15 +98,32 @@ class EventsPage extends React.Component {
   static async getInitialProps(ctx) {
     const cookies = parseCookies(ctx);
     const { token } = cookies;
-    const events = await fetchEvents({ token });
+    let events = await fetchEvents({ token });
+    events = events.map(event => transformEventPayload(event));
+    events = events.filter(event => !!event);
+    // Fetch repo description and details
+    events = await events.map(async (event) => {
+      const { repoName } = event;
+      const repoInfo = await getRepoInfo({ token, repoName });
+      const {
+        description: repoDescription,
+        stargazers_count: repoStarGazersCount,
+        language: repoMainLanguage,
+      } = repoInfo;
+      return {
+        ...event,
+        repoDescription,
+        repoStarGazersCount,
+        repoMainLanguage,
+      };
+    });
+    events = await Promise.all(events);
     return { events };
   }
 
   renderEventCards() {
     const { events } = this.props;
     return events
-      .map(event => transformEventPayload(event))
-      .filter(event => !!event)
       .map((event, index) => {
         const {
           actor,
@@ -107,6 +131,9 @@ class EventsPage extends React.Component {
           created_at,
           repoName,
           repoUrl,
+          repoDescription,
+          repoStarGazersCount,
+          repoMainLanguage,
           action,
           commits,
           branch,
@@ -133,8 +160,10 @@ class EventsPage extends React.Component {
             { !commits && (
               <RepositoryCard
                 name={repoName}
+                description={repoDescription}
+                stargazers={repoStarGazersCount}
+                language={repoMainLanguage}
                 url={repoUrl}
-                description={""}
               />
             )}
           </div>
@@ -144,13 +173,13 @@ class EventsPage extends React.Component {
   }
 
   render() {
-    const { events } = this.props;
-    const actorAvatar = events[0].actor.avatar_url;
-    const actorName = events[0].actor.display_login;
+    // const { events } = this.props;
+    // const actorAvatar = events[0].actor.avatar_url;
+    // const actorName = events[0].actor.display_login;
     return (
       <div>
         <PageHeader />
-        <Header actorAvatar={actorAvatar} actorName={actorName} />
+        <Header />
         <div className="dashboard">
           {this.renderEventCards()}
           {/* <button className="button">More</button> */}
