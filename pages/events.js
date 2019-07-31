@@ -50,6 +50,11 @@ const transformEventPayload = eventPayload => {
         ...event,
         action: `forked`,
       };
+    case 'PublicEvent':
+      return {
+        ...event,
+        action: 'made public',
+      };
   }
   console.log(`Missing resolver for "${eventType}" event type.`);
   return null;
@@ -177,14 +182,26 @@ class EventsPage extends React.Component {
       );
   }
 
+  getActorAvatar() {
+    const { events } = this.props;
+    const { actorAvatar } = events.shift();
+    return actorAvatar;
+  }
+
+  getActorName() {
+    const { events } = this.props;
+    const { actor: actorName } = events.shift();
+    return actorName;
+  }
+
   render() {
-    // const { events } = this.props;
-    // const actorAvatar = events[0].actor.avatar_url;
-    // const actorName = events[0].actor.display_login;
     return (
       <div>
         <PageHeader />
-        <Header />
+        <Header
+          actorAvatar={this.getActorAvatar()}
+          actorName={this.getActorName()}
+        />
         <div className="dashboard">
           {this.renderEventCards()}
           {/* <button className="button">More</button> */}
