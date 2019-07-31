@@ -45,6 +45,11 @@ const transformEventPayload = eventPayload => {
         ...event,
         action: `${payload.action} an issue on`,
       };
+    case 'ForkEvent':
+      return {
+        ...event,
+        action: `forked`,
+      };
   }
   console.log(`Missing resolver for "${eventType}" event type.`);
   return null;
