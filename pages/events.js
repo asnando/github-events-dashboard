@@ -28,7 +28,7 @@ const transformEventPayload = eventPayload => {
     case 'ReleaseEvent':
       return {
         ...event,
-        action: `released ${payload.name} of`,
+        action: `released ${payload.release.name} of`,
       };
     case 'CreateEvent':
       return {
