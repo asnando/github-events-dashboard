@@ -3,110 +3,11 @@ import { parseCookies } from 'nookies';
 import moment from 'moment';
 import PageHeader from './PageHeader';
 import Header from '../components/Header';
+import RepositoryCard from '../components/RepositoryCard';
+import PushResumeCard from '../components/PushResumeCard';
+import transformEventPayload from './helpers/transformEventPayload';
 import fetchEvents from '../api/fetchEvents';
 import getRepoInfo from '../api/getRepoInfo';
-
-const transformEventPayload = eventPayload => {
-  const { type: eventType, actor, payload, repo, created_at } = eventPayload;
-
-  const event = {
-    actor: actor.display_login,
-    actorAvatar: actor.avatar_url,
-    created_at,
-    repoName: repo.name,
-    repoUrl: repo.url.replace(/api\./, '').replace(/repos\//, ''),
-  };
-
-  switch (eventType) {
-    case 'PushEvent':
-      return {
-        ...event,
-        action: 'pushed to',
-        commits: payload.commits,
-        branch: payload.ref.split('/').pop(),
-      };
-    case 'ReleaseEvent':
-      return {
-        ...event,
-        action: `released ${payload.release.name} of`,
-      };
-    case 'CreateEvent':
-      return {
-        ...event,
-        action: `created ${payload.ref_type} ${payload.ref || ''}`,
-      };
-    case 'WatchEvent':
-      return {
-        ...event,
-        action: 'started watching',
-      };
-    case 'IssuesEvent':
-      return {
-        ...event,
-        action: `${payload.action} an issue on`,
-      };
-    case 'ForkEvent':
-      return {
-        ...event,
-        action: `forked`,
-      };
-    case 'PublicEvent':
-      return {
-        ...event,
-        action: 'made public',
-      };
-  }
-  console.log(`Missing resolver for "${eventType}" event type.`);
-  return null;
-};
-
-const RepositoryCard = (props) => {
-  const { name, description, url, stargazers, language } = props;
-  return (
-    <div className="card">
-      <a href={url} target="_blank" className="card-title">{name}</a>
-      <div className="repo-name">{description}</div>
-      <div className="repo-details">
-        { language && (
-          <pre className="language">{language}</pre>
-        )}
-        { (stargazers > 0) && (
-          <React.Fragment>
-            <div className="star-icon"></div>
-            <pre className="stargazers">{stargazers}</pre>
-          </React.Fragment>
-        )}
-      </div>
-    </div>
-  );
-};
-
-const PushResumeCard = (props) => {
-  const { commits, branch, actorAvatar } = props;
-  const commitsSize = commits.length;
-  const commitsMessage = commitsSize > 1 ? 'commits' : 'commit';
-  return (
-    <div className="card">
-      <pre>{commitsSize} {commitsMessage} to <pre className="branch">{branch}</pre></pre>
-      {commits.slice(0, 2).map((commit, index) => {
-        return (
-          <div className="commit" key={index}>
-            <div className="actor-avatar">
-              <img src={actorAvatar} />
-            </div>
-            <pre className="commit-hash"></pre>
-            <pre className="commit-message">{commit.message}</pre>
-          </div>
-        );
-      })}
-      {commitsSize > 2 && (
-        <a href="">
-          {commitsSize - 2} more commits »
-        </a>
-      )}
-    </div>
-  );
-};
 
 class EventsPage extends React.Component {
   static async getInitialProps(ctx) {
@@ -140,6 +41,7 @@ class EventsPage extends React.Component {
     return events
       .map((event, index) => {
         const {
+          cardType,
           actor,
           actorAvatar,
           created_at,
@@ -159,10 +61,10 @@ class EventsPage extends React.Component {
                 <img src={actorAvatar} />
               </div>
               <pre className="event-title">
-                <b>{actor}</b> {action} <a href={repoUrl} target="_blank">{repoName}</a> {moment(created_at).fromNow()}
+                <b>{actor}</b> {action} <a href={repoUrl} className="repo-link" target="_blank">{repoName}</a> <pre className="created-at">{moment(created_at).fromNow()}</pre>
               </pre>
             </div>
-            { commits && (
+            { cardType === 'push' && (
               <PushResumeCard
                 name={repoName}
                 url={repoUrl}
@@ -171,7 +73,7 @@ class EventsPage extends React.Component {
                 actorAvatar={actorAvatar}
               />
             )}
-            { !commits && (
+            { cardType === 'repo' && (
               <RepositoryCard
                 name={repoName}
                 description={repoDescription}

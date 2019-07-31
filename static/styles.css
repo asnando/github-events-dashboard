@@ -133,7 +133,11 @@ html, body {
 .event-title {
   vertical-align: middle;
   font-size: .9em;
+  line-height: var(--actor-avatar-size);
   margin-left: .5em;
+}
+.event-title > * {
+  display: inline;
 }
 .actor-avatar {
   width: var(--actor-avatar-size);
@@ -174,8 +178,26 @@ html, body {
   text-decoration: none;
   color: #000;
 }
+.push-card > pre {
+  height: 1.5em;
+}
+.created-at {
+  font-size: .7em;
+  color: #606060;
+}
+.repo-link {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
 .repo-name {
-  height: 2em;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000;
+}
+.repo-description {
+  height: 3em;
+  line-height: 2.5em;
 }
 .repo-details {
   display: flex;
