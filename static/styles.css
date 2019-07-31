@@ -9,6 +9,7 @@
 }
 pre, a {
   font-size: .9em;
+  margin: 0;
 }
 html, body {
   margin: 0;
@@ -48,6 +49,15 @@ html, body {
   animation: animated-shadow 1.2s infinite alternate;
   -webkit-animation: animated-shadow 1.2s infinite alternate;
 }
+.star-icon {
+  background-image: url('/static/star-icon.svg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 1em;
+  height: 1em;
+  margin-left: 1em;
+}
 .github-authentication-link {
   font-size: 1.2em;
   text-decoration: none;
@@ -66,6 +76,7 @@ html, body {
   display: flex;
   align-items: center;
   background-color: rgb(36,41,46);
+  z-index: 999;
 }
 .header .header-left,
 .header .header-right {
@@ -162,6 +173,33 @@ html, body {
   font-weight: bold;
   text-decoration: none;
   color: #000;
+}
+.repo-name {
+  height: 2em;
+}
+.repo-details {
+  display: flex;
+  align-items: center;
+}
+.language,
+.stargazers {
+  font-size: .7em;
+  color: #606060;
+  position: relative;
+  padding-left: 1.5em;
+  line-height: 1em;
+}
+.language::before {
+  content: '';
+  width: 1em;
+  height: 1em;
+  border-radius: 1em;
+  background-color: #f1f12d;
+  position: absolute;
+  left: 0;
+}
+.stargazers {
+  padding-left: .5em;
 }
 .branch,
 .commit-hash {

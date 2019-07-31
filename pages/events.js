@@ -61,18 +61,22 @@ const transformEventPayload = eventPayload => {
 };
 
 const RepositoryCard = (props) => {
-  const {
-    name,
-    description,
-    url,
-    stargazers,
-    language,
-  } = props;
+  const { name, description, url, stargazers, language } = props;
   return (
     <div className="card">
       <a href={url} target="_blank" className="card-title">{name}</a>
-      <div className="card-description">{description}</div>
-      {language} - {stargazers}
+      <div className="repo-name">{description}</div>
+      <div className="repo-details">
+        { language && (
+          <pre className="language">{language}</pre>
+        )}
+        { (stargazers > 0) && (
+          <React.Fragment>
+            <div className="star-icon"></div>
+            <pre className="stargazers">{stargazers}</pre>
+          </React.Fragment>
+        )}
+      </div>
     </div>
   );
 };
@@ -123,7 +127,7 @@ class EventsPage extends React.Component {
       return {
         ...event,
         repoDescription,
-        repoStarGazersCount,
+        repoStarGazersCount: parseInt(repoStarGazersCount),
         repoMainLanguage,
       };
     });
