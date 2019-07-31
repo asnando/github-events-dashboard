@@ -7,8 +7,8 @@ const Header = (props) => {
       </div>
       <div className="header-right">
         {/* <a href="https://github.com/ffrm/github-events-dashboard.git" className="link">Fork me</a> */}
-        <iframe src="https://ghbtns.com/github-btn.html?user=ffrm&repo=github-events-dashboard&type=fork&count=true&size=small&count=true" frameborder="0" scrolling="0" width="158px" height="30px"></iframe>
-        <iframe src="https://ghbtns.com/github-btn.html?user=ffrm&repo=github-events-dashboard&type=watch&count=true&size=small" frameborder="0" scrolling="0" width="170px" height="30px"></iframe>
+        <iframe src="https://ghbtns.com/github-btn.html?user=ffrm&repo=github-events-dashboard&type=fork&count=false&size=small" frameborder="0" scrolling="0" width="158px" height="30px"></iframe>
+        <iframe src="https://ghbtns.com/github-btn.html?user=ffrm&repo=github-events-dashboard&type=watch&count=false&size=small" frameborder="0" scrolling="0" width="170px" height="30px"></iframe>
         <a href={`https://github.com/${actorName}`} className="actor-avatar">
           <img src={actorAvatar} />
         </a>
