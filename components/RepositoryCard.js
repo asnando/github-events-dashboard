@@ -1,7 +1,14 @@
 import React from 'react';
 
 const RepositoryCard = (props) => {
-  const { name, description, url, stargazers, language } = props;
+  const {
+    name,
+    description,
+    url,
+    stargazers,
+    language,
+  } = props;
+
   return (
     <div className="card repo-card">
       <a href={url} target="_blank" className="repo-name">{name}</a>

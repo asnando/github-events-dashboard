@@ -1,21 +1,25 @@
 import React from 'react';
 import { parseCookies } from 'nookies';
-import moment from 'moment';
 import PageHeader from './PageHeader';
 import Header from '../components/Header';
-import RepositoryCard from '../components/RepositoryCard';
-import PushResumeCard from '../components/PushResumeCard';
+import Event from '../components/Event';
 import transformEventPayload from './helpers/transformEventPayload';
 import fetchEvents from '../api/fetchEvents';
 import getRepoInfo from '../api/getRepoInfo';
 
+
 class EventsPage extends React.Component {
   static async getInitialProps(ctx) {
+    const { query: { page } } = ctx;
     const cookies = parseCookies(ctx);
     const { token } = cookies;
-    let events = await fetchEvents({ token });
-    events = events.map(event => transformEventPayload(event));
-    events = events.filter(event => !!event);
+
+    let events = await fetchEvents({ token, page });
+
+    events = events
+      .map(event => transformEventPayload(event))
+      .filter(event => !!event);
+
     // Fetch repo description and details
     events = await events.map(async (event) => {
       const { repoName } = event;
@@ -32,75 +36,59 @@ class EventsPage extends React.Component {
         repoMainLanguage,
       };
     });
+
     events = await Promise.all(events);
-    return { events };
+
+    return {
+      events,
+      page: parseInt(page) || 1,
+    };
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = { ready: false };
+  }
+
+  componentDidMount() {
+    this.setState({ ready: true });
   }
 
   renderEventCards() {
     const { events } = this.props;
-    return events
-      .map((event, index) => {
-        const {
-          cardType,
-          actor,
-          actorAvatar,
-          created_at,
-          repoName,
-          repoUrl,
-          repoDescription,
-          repoStarGazersCount,
-          repoMainLanguage,
-          action,
-          commits,
-          branch,
-        } = event;
-        return (
-          <div className="event" key={index}>
-            <div className="event-header">
-              <div className="actor-avatar">
-                <img src={actorAvatar} />
-              </div>
-              <pre className="event-title">
-                <b>{actor}</b> {action} <a href={repoUrl} className="repo-link" target="_blank">{repoName}</a> <pre className="created-at">{moment(created_at).fromNow()}</pre>
-              </pre>
-            </div>
-            { cardType === 'push' && (
-              <PushResumeCard
-                name={repoName}
-                url={repoUrl}
-                commits={commits}
-                branch={branch}
-                actorAvatar={actorAvatar}
-              />
-            )}
-            { cardType === 'repo' && (
-              <RepositoryCard
-                name={repoName}
-                description={repoDescription}
-                stargazers={repoStarGazersCount}
-                language={repoMainLanguage}
-                url={repoUrl}
-              />
-            )}
-          </div>
-        );
-      }
-      );
+    return events.map((event, index) => (
+      <Event {...event} key={index} />
+    ));
   }
 
   getActorAvatar() {
     const { events } = this.props;
-    const { actorAvatar } = events.shift();
-    return actorAvatar;
+    try {
+      const { actorAvatar } = events.shift();
+      return actorAvatar;
+    } catch (exception) {
+      return null;
+    }
   }
 
   getActorName() {
     const { events } = this.props;
-    const { actor: actorName } = events.shift();
-    return actorName;
+    try {
+      const { actor: actorName } = events.shift();
+      return actorName;
+    } catch (exception) {
+      return null;
+    }
   }
 
   render() {
+    const { ready } = this.state;
+    const { events, page } = this.props;
+
+    if (!ready) {
+      return null;
+    }
+
     return (
       <div>
         <PageHeader />
@@ -109,8 +97,17 @@ class EventsPage extends React.Component {
           actorName={this.getActorName()}
         />
         <div className="dashboard">
-          {this.renderEventCards()}
-          {/* <button className="button">More</button> */}
+          {
+            events.length
+              ? this.renderEventCards()
+              : (
+                <h1>Sorry, there is no more events for you 😢.</h1>
+              )
+          }
+          <div className="footer-buttons">
+            { events.length && page > 1 && (<a href={`events?page=${page - 1}`}>« Previous</a>)}
+            { events.length && (<a href={`events?page=${page + 1}`}>Next »</a>)}
+          </div>
         </div>
       </div>
     );

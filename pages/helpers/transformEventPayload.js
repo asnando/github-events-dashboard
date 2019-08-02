@@ -1,10 +1,20 @@
 const transformEventPayload = eventPayload => {
-  const { type: eventType, actor, payload, repo, created_at } = eventPayload;
+  if (!eventPayload || eventPayload.hasOwnProperty('url')) {
+    return null;
+  }
+
+  const {
+    type: eventType,
+    actor,
+    payload,
+    repo,
+    created_at: createdAt,
+  } = eventPayload;
 
   const event = {
     actor: actor.display_login,
     actorAvatar: actor.avatar_url,
-    created_at,
+    createdAt,
     repoName: repo.name,
     repoUrl: repo.url.replace(/api\./, '').replace(/repos\//, ''),
     cardType: 'repo',

@@ -8,7 +8,6 @@ export default class extends React.Component {
     const { res, query } = ctx;
     const { code } = query;
     const accessToken = await retrieveOAuthAccessToken(code);
-    console.log(`Got access token: "${accessToken}"`);
     setCookie(ctx, 'token', accessToken);
     res.writeHead(302, {
       Location: '/events',

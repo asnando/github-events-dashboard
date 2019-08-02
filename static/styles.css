@@ -11,6 +11,9 @@ pre, a {
   font-size: .9em;
   margin: 0;
 }
+h1 {
+  color: #303030;
+}
 html, body {
   margin: 0;
   padding: 0;
@@ -27,6 +30,7 @@ html, body {
 }
 .welcome-title {
   font-size: 1.8em;
+  margin-top: 1.5em;
 }
 .github-icon {
   width: 20em;
@@ -60,6 +64,7 @@ html, body {
 }
 .github-authentication-link {
   font-size: 1.2em;
+  margin-top: 1em;
   text-decoration: none;
   color: rgb(125,186,228);
 }
@@ -104,6 +109,9 @@ html, body {
   background-repeat: no-repeat;
   background-size: 100%;
   filter: invert(100%);
+}
+.header-icon:hover {
+  opacity: .8;
 }
 .header iframe {
   width: 5em;
@@ -162,7 +170,7 @@ html, body {
 }
 .card {
   width: calc(100% - (var(--actor-avatar-size) + .5em));
-  min-height: 6em;
+  min-height: 9em;
   background-color: #fff;
   border-radius: .25em;
   border: 1px solid #ccc;
@@ -198,6 +206,10 @@ html, body {
 .repo-description {
   height: 3em;
   line-height: 2.5em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 95%;
 }
 .repo-details {
   display: flex;
@@ -249,24 +261,31 @@ html, body {
 .commit:not(:first-child) {
   padding-top: .5em;
 }
-.button {
+.footer-buttons {
   width: 100%;
-  height: 2.5em;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: .25em;
-  outline: none;
-  font-size: 1em;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin: 1em auto 1em auto;
+  height: 5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.button:hover {
-  cursor: pointer;
+.footer-buttons > * {
+  background-color: #fff;
+  border-radius: .25em;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  width: 8em;
+  height: 3em;
+  line-height: 3em;
+  text-align: center;
+  vertical-align: middle;
+  outline: none;
+  color: #3435eb;
+}
+.footer-buttons > *:hover {
   opacity: .8;
 }
-.button:active {
-  opacity: .6;
+.footer-buttons > *:active {
+  opacity: .7;
 }
 
 /* keyframes */

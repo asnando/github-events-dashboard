@@ -3,7 +3,7 @@ import { GITHUB_API_URL } from './api.config';
 import getUserInfo from './getUserInfo';
 
 const fetchEvents = async (params) => {
-  const { token, user } = params;
+  const { token, user, page } = params;
   let userName;
   if (!user) {
     const userInfo = await getUserInfo(token);
@@ -11,13 +11,21 @@ const fetchEvents = async (params) => {
   } else {
     userName = user.login;
   }
-  console.log(`Fetching events from "${userName}" user…`);
-  const res = await fetch(`${GITHUB_API_URL}/users/${userName}/events`, {
+  const res = await fetch(`${GITHUB_API_URL}/users/${userName}/events?page=${page || 1}`, {
     headers: {
       'Authorization': `token ${token}`,
     }
   });
-  return await res.json();
+
+  try {
+    const events = await res.json();
+    if (!Array.isArray(events)) {
+      return [];
+    }
+    return events;
+  } catch (exception) {
+    return [];
+  }
 };
 
 export default fetchEvents;
