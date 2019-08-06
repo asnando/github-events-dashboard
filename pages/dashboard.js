@@ -102,16 +102,6 @@ class Dashboard extends React.Component {
             padding-left: 1em;
           }
         `}</style>
-        <style jsx global>{`
-          body {
-            position: absolute;
-            margin: 0;
-            padding: 0;
-            background-color: #eee;
-            width: 100%;
-            height: 100%;
-          }
-        `}</style>
       </div>
     );
   }

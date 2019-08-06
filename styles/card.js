@@ -4,7 +4,7 @@ export default css`
   .card {
     width: 100%;
     min-height: 4em;
-    // box-sizing: border-box;
+    box-sizing: border-box;
     padding: .5em 1em 1.5em 1em;
     background-color: #fff;
     border: 1px solid #ddd;

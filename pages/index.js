@@ -68,19 +68,6 @@ const Welcome = () => {
           }
         }
       `}</style>
-      <style jsx global>{`
-        body {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          margin: 0;
-          padding: 0;
-          background-color: #eee;
-        }
-        * {
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        }
-      `}</style>
     </div>
   );
 };

@@ -21,6 +21,8 @@ const Header = (props) => {
         .header {
           position: fixed;
           width: 100%;
+          left: 0;
+          top: 0;
           height: 4em;
           display: flex;
           align-items: center;
@@ -35,7 +37,6 @@ const Header = (props) => {
           align-items: center;
         }
         .header-left {
-          backgorund-color: red;
         }
         .header-right {
           justify-content: flex-end;

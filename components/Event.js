@@ -58,6 +58,9 @@ const Event = (props) => {
           width: 100%;
           min-height: 10em;
           margin-bottom: 1em;
+          border-box: box-sizing;
+        }
+        .event:not(:last-child) {
           border-bottom: 1px solid #ddd;
         }
         .event-header {
