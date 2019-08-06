@@ -1,6 +1,5 @@
 import React from 'react';
 import { setCookie } from 'nookies';
-import PageHeader from './PageHeader';
 import retrieveOAuthAccessToken from '../api/retrieveOAuthAccessToken';
 
 export default class extends React.Component {
@@ -10,7 +9,7 @@ export default class extends React.Component {
     const accessToken = await retrieveOAuthAccessToken(code);
     setCookie(ctx, 'token', accessToken);
     res.writeHead(302, {
-      Location: '/events',
+      Location: '/dashboard',
     });
     res.end();
   }
@@ -18,7 +17,6 @@ export default class extends React.Component {
   render() {
     return (
       <div>
-        <PageHeader title="Redirecting" />
         <pre>Redirecting...</pre>
       </div>
     );

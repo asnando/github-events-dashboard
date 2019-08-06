@@ -1,14 +1,12 @@
 import React from 'react';
 import { parseCookies } from 'nookies';
-import PageHeader from './PageHeader';
 import Header from '../components/Header';
 import Event from '../components/Event';
 import transformEventPayload from './helpers/transformEventPayload';
 import fetchEvents from '../api/fetchEvents';
 import getRepoInfo from '../api/getRepoInfo';
 
-
-class EventsPage extends React.Component {
+class Dashboard extends React.Component {
   static async getInitialProps(ctx) {
     const { query: { page } } = ctx;
     const cookies = parseCookies(ctx);
@@ -83,35 +81,40 @@ class EventsPage extends React.Component {
 
   render() {
     const { ready } = this.state;
-    const { events, page } = this.props;
 
     if (!ready) {
       return null;
     }
 
+    const actorName = this.getActorName();
+    const actorAvatar = this.getActorAvatar();
+
     return (
       <div>
-        <PageHeader />
-        <Header
-          actorAvatar={this.getActorAvatar()}
-          actorName={this.getActorName()}
-        />
+        <Header actorName={actorName} actorAvatar={actorAvatar} />
         <div className="dashboard">
-          {
-            events.length
-              ? this.renderEventCards()
-              : (
-                <h1>Sorry, there is no more events for you 😢.</h1>
-              )
-          }
-          <div className="footer-buttons">
-            { events.length && page > 1 && (<a href={`events?page=${page - 1}`}>« Previous</a>)}
-            { events.length && (<a href={`events?page=${page + 1}`}>Next »</a>)}
-          </div>
+          {this.renderEventCards()}
         </div>
+        <style jsx>{`
+          .dashboard {
+            width: 40em;
+            padding-top: 5em;
+            padding-left: 1em;
+          }
+        `}</style>
+        <style jsx global>{`
+          body {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            background-color: #eee;
+            width: 100%;
+            height: 100%;
+          }
+        `}</style>
       </div>
     );
   }
 }
 
-export default EventsPage;
+export default Dashboard;
