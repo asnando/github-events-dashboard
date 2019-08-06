@@ -37,6 +37,11 @@ const PushCard = (props) => {
       )}
       <style jsx>{cardStyles}</style>
       <style jsx>{`
+        pre,
+        .commit-hash,
+        .commit-message {
+          font-size: .8em;
+        }
         .commit {
           width: 100%;
           height: 2em;
@@ -52,7 +57,6 @@ const PushCard = (props) => {
           padding: .25em .5em;
           border-radius: .25em;
           text-decoration: none;
-          font-size: .8em;
         }
         .commit-actor-avatar {
           width: 1.5em;
@@ -66,11 +70,9 @@ const PushCard = (props) => {
         }
         .commit-hash {
           color: #0366d6;
-          font-size: .8em;
           margin-left: .5em;
         }
         .commit-message {
-          font-size: .8em;
           margin-left: .5em;
           color: #586069;
           overflow: hidden;
@@ -80,8 +82,10 @@ const PushCard = (props) => {
         }
         .missing-commits {
           text-decoration: none;
-          font-size: .8em;
           color: #586069;
+          line-height: 0;
+          vertical-align: bottom;
+          font-size: .9em;
         }
         .missing-commits:hover {
           text-decoration: underline;

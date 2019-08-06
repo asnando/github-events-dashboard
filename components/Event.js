@@ -54,6 +54,9 @@ const Event = (props) => {
         )}
       </div>
       <style jsx>{`
+        pre, a {
+          font-size: .9em;
+        }
         .event {
           width: 100%;
           min-height: 10em;
@@ -105,7 +108,7 @@ const Event = (props) => {
         }
         .event-action,
         .event-repo-name {
-          margin-left: .5em;
+          margin-left: .25em;
         }
         .created-at {
           color: #606060;

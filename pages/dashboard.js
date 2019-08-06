@@ -93,6 +93,9 @@ class Dashboard extends React.Component {
       <div>
         <Header actorName={actorName} actorAvatar={actorAvatar} />
         <div className="dashboard">
+          <div className="dashboard-title">
+            All activity
+          </div>
           {this.renderEventCards()}
         </div>
         <style jsx>{`
@@ -100,6 +103,10 @@ class Dashboard extends React.Component {
             width: 40em;
             padding-top: 5em;
             padding-left: 1em;
+          }
+          .dashboard-title {
+            font-size: 1.25em;
+            margin: .5em 0 1em .5em;
           }
         `}</style>
       </div>
