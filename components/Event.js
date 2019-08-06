@@ -28,7 +28,9 @@ const Event = (props) => {
         </div>
         <div className="event-title">
           <pre className="event-description">
-            <a href="#">{actor}</a> {action} <a href={repoUrl} target="_blank">{repoName}</a>
+            <a href="#" className="event-actor-name">{actor}</a>
+            <pre className="event-action">{action}</pre>
+            <a href={repoUrl} target="_blank" className="event-repo-name">{repoName}</a>
             <pre className="created-at"> {moment(createdAt).fromNow()}</pre>
           </pre>
         </div>
@@ -44,7 +46,11 @@ const Event = (props) => {
           />
         )}
         { cardType === 'push' && (
-          <PushCard />
+          <PushCard
+            actorAvatar={actorAvatar}
+            commits={commits}
+            branch={branch}
+          />
         )}
       </div>
       <style jsx>{`
@@ -52,7 +58,7 @@ const Event = (props) => {
           width: 100%;
           min-height: 10em;
           margin-bottom: 1em;
-          border-bottom: 1px solid #ccc;
+          border-bottom: 1px solid #ddd;
         }
         .event-header {
           width: 100%;
@@ -87,6 +93,16 @@ const Event = (props) => {
         }
         .event-description > * {
           display: inline;
+        }
+        .event-actor-name,
+        .event-repo-name {
+          color: rgb(36, 41, 46);
+          text-decoration: none;
+          font-weight: bold;
+        }
+        .event-action,
+        .event-repo-name {
+          margin-left: .5em;
         }
         .created-at {
           color: #606060;

@@ -19,7 +19,7 @@ const RepoCard = (props) => {
           <div className="language-icon"></div>
           <pre>{repoMainLanguage}</pre>
         </div>
-        { repoStarGazersCount && (
+        { repoStarGazersCount > 0 && (
           <div className="card-repo-stargazers">
             <div className="stargazers-icon"></div>
             <pre>{repoStarGazersCount}</pre>
@@ -29,13 +29,15 @@ const RepoCard = (props) => {
       <style jsx>{cardStyles}</style>
       <style jsx>{`
         .card-repo-name {
-          font-size: 1.1em;
-          line-height: 3em;
           font-weight: bold;
           text-decoration: none;
+          line-height: 3em;
+          color: rgb(36,41,46);
         }
         .card-repo-description {
-          font-size: 1em;
+          color: #586069;
+          padding-bottom: 2em;
+          font-size: .9em;
         }
         .card-repo-footer {
           width: 100%;
@@ -45,17 +47,21 @@ const RepoCard = (props) => {
           left: 0;
           display: flex;
           align-items: center;
+          margin-left: .25em; /* Same padding-left as the card content */
+        }
+        .card-repo-language > pre,
+        .card-repo-stargazers > pre {
+          height: 1em;
         }
         .card-repo-language,
         .card-repo-stargazers {
           font-size: .8em;
-          color: #505050;
-          width: 10em;
+          color: #586069;
+          display: flex;
+          align-items: center;
         }
-        .card-repo-language > *,
-        .card-repo-stargazers > * {
-          display: inline-block;
-          text-align: center;
+        .card-repo-stargazers {
+          margin-left: 1em;
         }
         .language-icon,
         .stargazers-icon {
@@ -74,6 +80,7 @@ const RepoCard = (props) => {
         }
         pre {
           height: 1.5em;
+          font-size: 1.25em;
         }
       `}</style>
     </div>
