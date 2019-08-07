@@ -79,13 +79,22 @@ class Dashboard extends React.Component {
     }
   }
 
+  goToNextPage() {
+    const { page } = this.props;
+    window.location.href = `/dashboard?page=${page + 1}`;
+  }
+
+  goToPreviousPage() {
+    const { page } = this.props;
+    window.location.href = `/dashboard?page=${page - 1}`;
+  }
+
   render() {
     const { ready } = this.state;
 
-    if (!ready) {
-      return null;
-    }
+    if (!ready) return null;
 
+    const { page, events } = this.props;
     const actorName = this.getActorName();
     const actorAvatar = this.getActorAvatar();
 
@@ -93,10 +102,31 @@ class Dashboard extends React.Component {
       <div>
         <Header actorName={actorName} actorAvatar={actorAvatar} />
         <div className="dashboard">
-          <div className="dashboard-title">
-            All activity
-          </div>
-          {this.renderEventCards()}
+          {
+            !events.length
+              ? (
+                <h1 className="no-events-avaiable">
+                  Sorry, there is no more events for you 😢
+                </h1>
+              )
+              : (
+                <>
+                  <div className="dashboard-title">
+                    All activity
+                  </div>
+                  {this.renderEventCards()}
+                  <div
+                    className="dashboard-footer"
+                    style={ page > 1 ? { justifyContent: 'space-between' } : { justifyContent: 'flex-end' } }
+                  >
+                    { page > 1 && (
+                      <button onClick={() => this.goToPreviousPage()}>« Previous</button>
+                    )}
+                    <button onClick={() => this.goToNextPage()}>Next »</button>
+                  </div>
+                </>
+              )
+          }
         </div>
         <style jsx>{`
           .dashboard {
@@ -107,6 +137,30 @@ class Dashboard extends React.Component {
           .dashboard-title {
             font-size: 1.25em;
             margin: .5em 0 1em .5em;
+          }
+          .dashboard-footer {
+            display: flex;
+            flex-direction: row;
+            padding-top: .5em;
+            padding-bottom: 2em;
+          }
+          .dashboard-footer > button {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: .5em 1em .5em 1em;
+            border-radius: .25em;
+            font-size: 1em;
+            outline: none;
+            cursor: pointer;
+            width: 8em;
+          }
+          .dashboard-footer > button:hover {
+            opacity: .5;
+          }
+          .no-events-avaiable {
+            font-size: 1em;
+            color: #252525;
+            text-align: center;
           }
         `}</style>
       </div>

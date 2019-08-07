@@ -15,10 +15,12 @@ const RepoCard = (props) => {
       <a href={repoUrl} className="card-repo-name">{repoName}</a>
       <div className="card-repo-description">{repoDescription}</div>
       <div className="card-repo-footer">
-        <div className="card-repo-language">
-          <div className="language-icon"></div>
-          <pre>{repoMainLanguage}</pre>
-        </div>
+        { repoMainLanguage && (
+          <div className="card-repo-language">
+            <div className="language-icon"></div>
+            <pre>{repoMainLanguage}</pre>
+          </div>
+        )}
         { repoStarGazersCount > 0 && (
           <div className="card-repo-stargazers">
             <div className="stargazers-icon"></div>
@@ -48,17 +50,11 @@ const RepoCard = (props) => {
         }
         .card-repo-description {
           color: #586069;
-          padding-bottom: 2em;
         }
         .card-repo-footer {
           width: 100%;
-          height: 3em;
-          position: absolute;
-          bottom: 0;
-          left: 0;
           display: flex;
           align-items: center;
-          margin-left: .25em; /* Same padding-left as the card content */
         }
         .card-repo-language,
         .card-repo-stargazers {
@@ -71,7 +67,7 @@ const RepoCard = (props) => {
         }
         .language-icon,
         .stargazers-icon {
-          margin: 0 .25em 0 .75em;
+          margin: 0 .25em 0 0;
         }
         .language-icon {
           width: .5em;
