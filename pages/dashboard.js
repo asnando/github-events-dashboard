@@ -8,6 +8,7 @@ import getRepoInfo from '../api/getRepoInfo';
 
 class Dashboard extends React.Component {
   static async getInitialProps(ctx) {
+    const { res } = ctx;
     const { query: { page } } = ctx;
     const cookies = parseCookies(ctx);
     const { token } = cookies;
@@ -17,6 +18,14 @@ class Dashboard extends React.Component {
     events = events
       .map(event => transformEventPayload(event))
       .filter(event => !!event);
+
+    if (!events.length && (!page || page <= 1)) {
+      // Redirect to Github OAUTH authentication page.
+      res.writeHead(302, {
+        Location: '/',
+      });
+      res.end();
+    }
 
     // Fetch repo description and details
     events = await events.map(async (event) => {
