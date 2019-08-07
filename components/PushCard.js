@@ -5,27 +5,39 @@ const PushCard = (props) => {
   const {
     commits,
     branch,
-    actorAvatar
+    actorAvatar,
+    repoUrl,
   } = props;
 
   const numberOfCommits = commits.length;
   const commitMessage = numberOfCommits > 1 ? 'commits' : 'commit';
-  const commitsLeft = numberOfCommits > 1 ? numberOfCommits - 1 : 0;
+  const commitsLeft = numberOfCommits > 2 ? numberOfCommits - 2 : 0;
+
+  const branchUrl = `${repoUrl}/tree/${branch}`;
+  const compareCommitsUrl = commits[0].url
+    .replace(/api\./, '')
+    .replace(/repos\//, '')
+    .replace(/commits/, 'compare');
 
   return (
     <div className="card">
-      <pre>{numberOfCommits} {commitMessage} to <a href="#" className="commit-branch">{branch}</a></pre>
-      {commits.map((commit, index) => {
+      <pre>{numberOfCommits} {commitMessage} to <a href={branchUrl} target="_blank" className="commit-branch">{branch}</a></pre>
+      {commits.slice(0,2).map((commit, index) => {
         const commitHash = commit.sha.slice(0, 6);
         const { message: commitMessage } = commit;
+        const { url } = commit;
+        const commitUrl = url
+          .replace(/api\./, '')
+          .replace(/repos\//, '')
+          .replace(/commits/, 'commit');
         return (
           <div className="commit" key={index}>
             <div className="commit-actor-avatar">
               <img src={actorAvatar} />
             </div>
-            <div className="commit-hash">
+            <a href={commitUrl} target="_blank" className="commit-hash">
               {commitHash}
-            </div>
+            </a>
             <div className="commit-message">
               {commitMessage}
             </div>
@@ -33,7 +45,9 @@ const PushCard = (props) => {
         );
       })}
       {commitsLeft > 0 && (
-        <a href="#" className="missing-commits">{commitsLeft} more commits »</a>
+        <a href={compareCommitsUrl} target="_blank" className="missing-commits">
+          {commitsLeft} more commits »
+        </a>
       )}
       <style jsx>{cardStyles}</style>
       <style jsx>{`
@@ -96,11 +110,12 @@ const PushCard = (props) => {
 };
 
 PushCard.propTypes = {
-  commits: PropTypes.arrayOf([
+  commits: PropTypes.arrayOf(
     PropTypes.object,
-  ]).isRequired,
+  ).isRequired,
   branch: PropTypes.string.isRequired,
   actorAvatar: PropTypes.string,
+  repoUrl: PropTypes.string,
 };
 
 export default PushCard;

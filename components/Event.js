@@ -18,6 +18,7 @@ const Event = (props) => {
     repoStarGazersCount,
     repoMainLanguage,
   } = props;
+  const actorUrl = `https://github.com/${actor}`;
   return (
     <div className="event">
       <div className="event-header">
@@ -28,7 +29,7 @@ const Event = (props) => {
         </div>
         <div className="event-title">
           <pre className="event-description">
-            <a href="#" className="event-actor-name">{actor}</a>
+            <a href={actorUrl} target="_blank" className="event-actor-name">{actor}</a>
             <pre className="event-action">{action}</pre>
             <a href={repoUrl} target="_blank" className="event-repo-name">{repoName}</a>
             <pre className="created-at"> {moment(createdAt).fromNow()}</pre>
@@ -50,6 +51,7 @@ const Event = (props) => {
             actorAvatar={actorAvatar}
             commits={commits}
             branch={branch}
+            repoUrl={repoUrl}
           />
         )}
       </div>
@@ -112,6 +114,7 @@ const Event = (props) => {
         }
         .created-at {
           color: #606060;
+          font-size: .8em;
         }
         .event-content {
           padding-left: 3.25em;
