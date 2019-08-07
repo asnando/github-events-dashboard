@@ -6,7 +6,7 @@ const { GITHUB_OAUTH_CLIENT_ID } = process.env;
 const getOAuthAuthenticationEndpoint = () => {
   const params = encodeQueryStringParams({
     client_id: GITHUB_OAUTH_CLIENT_ID,
-    scope: 'user,repo',
+    scope: 'read:user,repo',
   });
   return `${GITHUB_OAUTH_URL}/authorize?${params}`;
 };
