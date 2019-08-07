@@ -53,10 +53,10 @@ const Header = (props) => {
         .actor-avatar {
           width: 2em;
           height: 2em;
-          background-color: red;
           border-radius: .25em;
           margin-right: 1em;
           overflow: hidden;
+          background-color: #fff;
         }
         .actor-avatar > img {
           width: 100%;
