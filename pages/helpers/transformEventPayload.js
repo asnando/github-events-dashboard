@@ -64,8 +64,14 @@ const transformEventPayload = eventPayload => {
         ...event,
         action: 'created a pull request on',
       };
+    case 'DeleteEvent':
+      return {
+        ...event,
+        action: `deleted ${payload.ref} branch from`,
+      };
   }
   console.log(`Missing resolver for "${eventType}" event type.`);
+  console.log(eventPayload);
   return null;
 };
 
