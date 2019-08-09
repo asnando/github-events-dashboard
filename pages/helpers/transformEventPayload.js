@@ -62,7 +62,7 @@ const transformEventPayload = eventPayload => {
     case 'PullRequestEvent':
       return {
         ...event,
-        action: 'created a pull request on',
+        action: `${payload.action} a pull request on`,
       };
     case 'DeleteEvent':
       return {
