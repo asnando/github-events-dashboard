@@ -1,6 +1,20 @@
 import PropTypes from 'prop-types';
 import cardStyles from '../styles/card';
 
+const countStars = (stars) => {
+  if (stars < 1000) {
+    return stars.toString();
+  }
+  if (!(stars % 1000)) {
+    return Math.floor(stars / 1000).toString().concat('K');
+  }
+  return (stars / 1000)
+    .toFixed(1)
+    .toString()
+    .replace(/\.0$/, '')
+    .concat('K');
+};
+
 const RepoCard = (props) => {
   const {
     repoName,
@@ -24,7 +38,7 @@ const RepoCard = (props) => {
         { repoStarGazersCount > 0 && (
           <div className="card-repo-stargazers">
             <div className="stargazers-icon"></div>
-            <pre>{repoStarGazersCount}</pre>
+            <pre>{countStars(repoStarGazersCount)}</pre>
           </div>
         )}
       </div>
