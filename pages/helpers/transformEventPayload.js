@@ -59,6 +59,11 @@ const transformEventPayload = eventPayload => {
         ...event,
         action: 'made public',
       };
+    case 'PullRequestEvent':
+      return {
+        ...event,
+        action: 'created a pull request on',
+      };
   }
   console.log(`Missing resolver for "${eventType}" event type.`);
   return null;
