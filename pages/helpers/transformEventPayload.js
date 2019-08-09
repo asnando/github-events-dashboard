@@ -42,7 +42,7 @@ const transformEventPayload = eventPayload => {
     case 'WatchEvent':
       return {
         ...event,
-        action: 'started watching',
+        action: 'starred',
       };
     case 'IssuesEvent':
       return {
