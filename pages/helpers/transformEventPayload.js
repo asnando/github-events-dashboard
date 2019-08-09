@@ -42,7 +42,7 @@ const transformEventPayload = eventPayload => {
     case 'WatchEvent':
       return {
         ...event,
-        action: 'started watching',
+        action: 'starred',
       };
     case 'IssuesEvent':
       return {
@@ -59,8 +59,19 @@ const transformEventPayload = eventPayload => {
         ...event,
         action: 'made public',
       };
+    case 'PullRequestEvent':
+      return {
+        ...event,
+        action: 'created a pull request on',
+      };
+    case 'DeleteEvent':
+      return {
+        ...event,
+        action: `deleted ${payload.ref} branch from`,
+      };
   }
   console.log(`Missing resolver for "${eventType}" event type.`);
+  console.log(eventPayload);
   return null;
 };
 
