@@ -11,7 +11,7 @@ const Header = (props) => {
         <a className="github-icon" href="/dashboard"></a>
       </div>
       <div className="header-right">
-        <iframe src="https://ghbtns.com/github-btn.html?user=ffrm&repo=github-events-dashboard&type=fork&count=false&size=small" frameborder="0" scrolling="0" width="96px" height="24px"></iframe>
+        {/* <iframe src="https://ghbtns.com/github-btn.html?user=ffrm&repo=github-events-dashboard&type=fork&count=false&size=small" frameborder="0" scrolling="0" width="96px" height="24px"></iframe> */}
         <iframe src="https://ghbtns.com/github-btn.html?user=ffrm&repo=github-events-dashboard&type=watch&count=false&size=small" frameborder="0" scrolling="0" width="96px" height="24px"></iframe>
         <a href={`https://github.com/${actorName}`} className="actor-avatar">
           <img src={actorAvatar} />
