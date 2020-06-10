@@ -9,11 +9,18 @@ const PushCard = (props) => {
     repoUrl,
   } = props;
 
-  const numberOfCommits = commits.length;
+  const numberOfCommits = commits.length || 1;
   const commitMessage = numberOfCommits > 1 ? 'commits' : 'commit';
   const commitsLeft = numberOfCommits > 2 ? numberOfCommits - 2 : 0;
 
   const branchUrl = `${repoUrl}/tree/${branch}`;
+  if (!commits.length) {
+    commits.push({
+      url: '',
+      sha: '',
+      message: 'empty commit',
+    });
+  }
   const compareCommitsUrl = commits[0].url
     .replace(/api\./, '')
     .replace(/repos\//, '')
