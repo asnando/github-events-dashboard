@@ -44,7 +44,7 @@ const Header = (props) => {
         .github-icon {
           width: 2em;
           height: 2em;
-          margin-left: 1em;
+          margin-left: 2em;
           filter: invert(1);
           background-image: url('/static/github-icon.png');
           background-repeat: no-repeat;
@@ -54,7 +54,7 @@ const Header = (props) => {
           width: 2em;
           height: 2em;
           border-radius: .25em;
-          margin-right: 1em;
+          margin-right: 2em;
           overflow: hidden;
           background-color: #fff;
         }
